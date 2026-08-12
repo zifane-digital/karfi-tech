@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Filiale {
+  id          String      @id @default(cuid())
+  code        FilialeCode @unique
+  nom         String
+  description String?
+  active      Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  users       User[]
+}
+
+model User {
+  id            String         @id @default(cuid())
+  nom           String
+  prenom        String
+  email         String         @unique
+  telephone     String?
+  password      String
+  role          Role           @default(EMPLOYE)
+  active        Boolean        @default(true)
+  filialeId     String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  notifications Notification[]
+  sessions      Session[]
+  filiale       Filiale?       @relation(fields: [filialeId], references: [id])
+  settings      UserSettings?
+
+  @@index([email])
+  @@index([role])
+  @@index([filialeId])
+}
+
+model Permission {
+  id          String           @id @default(cuid())
+  code        String           @unique
+  nom         String
+  description String?
+  module      String
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  roles       RolePermission[]
+
+  @@index([module])
+}
+
+model RolePermission {
+  id           String     @id @default(cuid())
+  role         Role
+  permissionId String
+  createdAt    DateTime   @default(now())
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@unique([role, permissionId])
+  @@index([role])
+  @@index([permissionId])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model UserSettings {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  theme              String   @default("system")
+  notifications      Boolean  @default(true)
+  emailNotifications Boolean  @default(true)
+  language           String   @default("fr")
+  timezone           String   @default("Africa/Niamey")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  title     String
+  message   String
+  type      NotificationType @default(INFO)
+  read      Boolean          @default(false)
+  userId    String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([read])
+  @@index([createdAt])
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN_HOLDING
+  DIRECTEUR_FILIALE
+  EMPLOYE
+  PARTENAIRE
+  CLIENT
+  VISITEUR
+}
+
+enum FilialeCode {
+  AGRO
+  TECH
+  MOBILIER
+  FORMATION
+}
+
+enum NotificationType {
+  INFO
+  SUCCESS
+  WARNING
+  SECURITY
+}

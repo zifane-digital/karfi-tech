@@ -1,26 +1,174 @@
 @import "tailwindcss";
 
+@plugin "daisyui";
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --karfi-royal: #2563eb;
+  --karfi-dark: #0f172a;
+  --karfi-gold: #d4af37;
+  --karfi-light: #f8fafc;
+  --karfi-red: #991b1b;
+  --karfi-white: #ffffff;
+  --karfi-text: #1e293b;
+  --karfi-border: #e2e8f0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* =========================================
+   THÈME CLAIR KARFI
+   ========================================= */
+
+@plugin "daisyui/theme" {
+  name: "karfi";
+  default: true;
+
+  --color-primary: #2563eb;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #d4af37;
+  --color-secondary-content: #0f172a;
+
+  --color-accent: #d4af37;
+  --color-accent-content: #0f172a;
+
+  --color-neutral: #0f172a;
+  --color-neutral-content: #ffffff;
+
+  --color-base-100: #ffffff;
+  --color-base-200: #f8fafc;
+  --color-base-300: #e2e8f0;
+  --color-base-content: #1e293b;
+
+  --color-success: #16a34a;
+  --color-success-content: #ffffff;
+
+  --color-warning: #d97706;
+  --color-warning-content: #ffffff;
+
+  --color-error: #991b1b;
+  --color-error-content: #ffffff;
+
+  --color-info: #0284c7;
+  --color-info-content: #ffffff;
+
+  --radius-box: 0.75rem;
+  --radius-field: 0.625rem;
+  --radius-selector: 0.625rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =========================================
+   THÈME SOMBRE KARFI
+   ========================================= */
+
+@plugin "daisyui/theme" {
+  name: "karfi-dark";
+
+  --color-primary: #3b82f6;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #e0b93b;
+  --color-secondary-content: #0f172a;
+
+  --color-accent: #e0b93b;
+  --color-accent-content: #0f172a;
+
+  --color-neutral: #020617;
+  --color-neutral-content: #ffffff;
+
+  --color-base-100: #0f172a;
+  --color-base-200: #020617;
+  --color-base-300: #1e293b;
+  --color-base-content: #f8fafc;
+
+  --color-success: #22c55e;
+  --color-success-content: #ffffff;
+
+  --color-warning: #f59e0b;
+  --color-warning-content: #ffffff;
+
+  --color-error: #ef4444;
+  --color-error-content: #ffffff;
+
+  --color-info: #38bdf8;
+  --color-info-content: #ffffff;
+
+  --radius-box: 0.75rem;
+  --radius-field: 0.625rem;
+  --radius-selector: 0.625rem;
+}
+
+/* =========================================
+   RESET GLOBAL
+   ========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  background: var(--karfi-light);
+  color: var(--karfi-text);
+}
+
+/* =========================================
+   ÉLÉMENTS INTERACTIFS
+   ========================================= */
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================================
+   SÉLECTION DU TEXTE
+   ========================================= */
+
+::selection {
+  background: var(--karfi-gold);
+  color: var(--karfi-dark);
+}
+
+/* animations */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-\[marquee_30s_linear_infinite\] {
+    animation-play-state: paused;
+  }
+}
+
+/* =========================================================
+   PARTENAIRES - DROITE VERS GAUCHE
+========================================================= */
+
+@keyframes partners {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-partners {
+  animation: partners 25s linear infinite;
+  width: max-content;
+}
+
+.animate-partners:hover {
+  animation-play-state: paused;
 }
