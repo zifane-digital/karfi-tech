@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 // GET : récupérer les utilisateurs
