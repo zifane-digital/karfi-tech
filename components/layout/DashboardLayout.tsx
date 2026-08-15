@@ -15,20 +15,16 @@ export default function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-base-200">
-      {/* Sidebar */}
       <Sidebar
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
 
-      {/* Contenu principal */}
       <div className="min-h-screen lg:pl-72">
-        {/* Navbar */}
         <Navbar
           onMenuClick={() => setSidebarOpen(true)}
         />
 
-        {/* Contenu de la page */}
         <main className="min-h-[calc(100vh-5rem)] p-4 sm:p-6 lg:p-8">
           {children}
         </main>

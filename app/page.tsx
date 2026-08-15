@@ -28,7 +28,7 @@ import {
   FaFacebookF,
   FaInstagram,
   FaLinkedinIn,
-  FaYoutube,
+  FaWhatsapp,
   FaTiktok,
 } from "react-icons/fa";
 
@@ -216,7 +216,7 @@ const news = [
 
 const team = [
   {
-    name: "Nom du PDG",
+    name: "KARFI HOLDING",
     role: "Président Directeur Général",
     image: "/images/equipe/pdg.png",
     badge: "DIRECTION GÉNÉRALE",
@@ -243,7 +243,7 @@ const team = [
   {
     name: "Responsable KARFI FORMATION",
     role: "Direction Formation",
-    image: "/images/equipe/formation.jpeg",
+    image: "/images/equipe/formation.jpg",
     badge: "FORMATION",
   },
 ];
@@ -254,29 +254,53 @@ const team = [
 
 const partners = [
   {
-    name: "BAGRI-Niger",
-    image: "/images/partenaires/bagri.webp",
+    name: "COTA-UENUM",
+    image: "/images/partenaires/cota.jpeg",
   },
   {
-    name: "NITA TRANSFERT D'ARGENT",
-    image: "/images/partenaires/nita.webp",
+    name: "USN-NIGER",
+    image: "/images/partenaires/usn.jpeg",
   },
   {
-    name: "AMANA TRANSFERT D'ARGENT",
-    image: "/images/partenaires/amanata.webp",
+    name: "ASSOCIATION SONG SOLIDAIRE",
+    image: "/images/partenaires/assoo.jpeg",
   },
   {
     name: "UDDM",
     image: "/images/partenaires/uddm.webp",
   },
   {
-    name: "PISEN-Niger",
-    image: "/images/partenaires/pis.webp",
+    name: "CARISMA-CONSULTING",
+    image: "/images/partenaires/carisma_consulting.jpeg",
   },
   {
-    name: "Agro",
-    image: "/images/partenaires/agro.jpg",
+    name: "CRAOM",
+    image: "/images/partenaires/craom.jpeg",
   },
+   {
+    name: "GLOBAL CENTER INNOV",
+    image: "/images/partenaires/Global_center innovations.jpeg",
+  },
+    {
+    name: "ONG ACTION SOLIDE",
+    image: "/images/partenaires/ong action-solide.jpeg",
+  },
+    {
+    name: "PAD",
+    image: "/images/partenaires/pad.jpeg",
+  },
+ {
+   name: "ZIFANE TECH DIGITAL",
+   image: "/images/partenaires/zifane.png",
+},
+ {
+   name: "SIARMED",
+   image: "/images/partenaires/siarmed.jpeg",
+ },
+
+ 
+
+
 ];
 
 /* =========================================================
@@ -320,7 +344,7 @@ export default function Home() {
     setMobileAbout(false);
     setMobilePoles(false);
 
-    router.push(`/${id}`);
+    router.push(`/poles/${id}`);
   };
 
   return (
@@ -397,7 +421,6 @@ export default function Home() {
                   À propos
 
                   <ChevronDown size={15} />
-
                 </div>
 
                 <ul
@@ -424,42 +447,6 @@ export default function Home() {
 
                       <span>
                         Notre vision
-                      </span>
-
-                    </button>
-                  </li>
-
-                  <li>
-                    <button onClick={() => scrollTo("apropos")}>
-
-                      <CheckCircle2 size={16} />
-
-                      <span>
-                        Notre mission
-                      </span>
-
-                    </button>
-                  </li>
-
-                  <li>
-                    <button onClick={() => scrollTo("parcours")}>
-
-                      <ArrowRight size={16} />
-
-                      <span>
-                        Notre parcours
-                      </span>
-
-                    </button>
-                  </li>
-
-                  <li>
-                    <button onClick={() => scrollTo("equipe")}>
-
-                      <Users size={16} />
-
-                      <span>
-                        Notre équipe
                       </span>
 
                     </button>
@@ -1377,7 +1364,7 @@ export default function Home() {
                 >
 
                   <source
-                    src="/videos/episode-1.mp4"
+                    src="/images/videos/episode-1.mp4"
                     type="video/mp4"
                   />
 
@@ -1891,7 +1878,7 @@ export default function Home() {
               <div className="card-actions mt-7">
 
                 <button
-                  onClick={() => router.push(`/${currentPole.id}`)}
+                  onClick={() => router.push(`/poles/${currentPole.id}`)}
                   className="btn btn-primary rounded-xl"
                 >
 
@@ -2471,7 +2458,7 @@ export default function Home() {
                 <div className="flex gap-2">
 
                   <a
-                    href="#"
+                    href="https://www.facebook.com/share/1KQxMRPF9y/"
                     className="btn btn-circle btn-sm btn-ghost"
                     aria-label="Facebook"
                   >
@@ -2495,15 +2482,15 @@ export default function Home() {
                   </a>
 
                   <a
-                    href="#"
+                    href="https://whatsapp.com/channel/0029VbBzwOmDjiOhgMTMWA1r"
                     className="btn btn-circle btn-sm btn-ghost"
-                    aria-label="YouTube"
+                    aria-label="Whatsapp"
                   >
-                    <FaYoutube size={17} />
+                    <FaWhatsapp size={17} />
                   </a>
 
                   <a
-                    href="#"
+                    href="https://www.tiktok.com/@user4035397323119?_r=1&_t=ZS-98qMUL9UlRx"
                     className="btn btn-circle btn-sm btn-ghost"
                     aria-label="TikTok"
                   >
@@ -2560,28 +2547,28 @@ export default function Home() {
               <div className="mt-4 flex flex-col gap-3 text-sm">
 
                 <button
-                  onClick={() => router.push("/agro")}
+                  onClick={() => router.push("/poles/agro")}
                   className="link link-hover text-left"
                 >
                   🌱 KARFI AGRO
                 </button>
 
                 <button
-                  onClick={() => router.push("/tech")}
+                  onClick={() => router.push("/poles/tech")}
                   className="link link-hover text-left"
                 >
                   💻 KARFI TECH
                 </button>
 
                 <button
-                  onClick={() => router.push("/mobilier")}
+                  onClick={() => router.push("/poles/mobilier")}
                   className="link link-hover text-left"
                 >
                   🏗️ KARFI MOBILIER
                 </button>
 
                 <button
-                  onClick={() => router.push("/formation")}
+                  onClick={() => router.push("/poles/formation")}
                   className="link link-hover text-left"
                 >
                   🎓 KARFI FORMATION

@@ -7,7 +7,8 @@ export async function GET() {
     const users = await prisma.user.findMany({
       select: {
         id: true,
-        name: true,
+        nom: true,
+        prenom: true,
         email: true,
         role: true,
         active: true,
@@ -42,7 +43,7 @@ export async function POST(request: NextRequest) {
       name,
       email,
       password,
-      role = "USER",
+      role = "EMPLOYE",
     } = body;
 
     if (!email || !password) {
@@ -85,7 +86,8 @@ export async function POST(request: NextRequest) {
 
     const user = await prisma.user.create({
       data: {
-        name: name?.trim() || null,
+        nom: name?.trim() || "Utilisateur",
+        prenom: "Utilisateur",
         email: normalizedEmail,
         password: hashedPassword,
         role,
@@ -93,7 +95,8 @@ export async function POST(request: NextRequest) {
       },
       select: {
         id: true,
-        name: true,
+        nom: true,
+        prenom: true,
         email: true,
         role: true,
         active: true,

@@ -9,6 +9,7 @@ export async function GET() {
     if (!user) {
       return NextResponse.json(
         {
+          success: false,
           authenticated: false,
           user: null,
         },
@@ -17,8 +18,8 @@ export async function GET() {
     }
 
     return NextResponse.json({
+      success: true,
       authenticated: true,
-
       user,
     });
   } catch (error) {
@@ -29,6 +30,7 @@ export async function GET() {
 
     return NextResponse.json(
       {
+        success: false,
         authenticated: false,
         user: null,
       },

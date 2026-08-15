@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import {
@@ -18,6 +18,14 @@ import {
 } from "lucide-react";
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<main className="min-h-screen bg-base-200" />}>
+      <LoginContent />
+    </Suspense>
+  );
+}
+
+function LoginContent() {
   const searchParams = useSearchParams();
 
   const [email, setEmail] = useState("");

@@ -1,4 +1,3 @@
-
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
@@ -6,25 +5,12 @@ import { getCurrentUser } from "@/lib/auth";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  console.log("=================================");
-  console.log("📊 API DASHBOARD START");
-  console.log("=================================");
-
   try {
     // =====================================================
-    // 1. AUTHENTIFICATION
+    // AUTHENTIFICATION
     // =====================================================
 
-    console.log("🔐 Vérification utilisateur...");
-
     const user = await getCurrentUser();
-
-    console.log(
-      "👤 Utilisateur :",
-      user
-        ? `${user.prenom} ${user.nom} (${user.email})`
-        : "AUCUN"
-    );
 
     if (!user) {
       return NextResponse.json(
@@ -37,75 +23,64 @@ export async function GET() {
     }
 
     // =====================================================
-    // 2. TEST PRISMA
+    // STATISTIQUES
     // =====================================================
 
-    console.log("🗄️ Test Prisma...");
+    const [
+      totalUsers,
+      activeUsers,
+      inactiveUsers,
+      totalFiliales,
+      activeFiliales,
+      totalPermissions,
+      totalNotifications,
+      unreadNotifications,
+      activeSessions,
+    ] = await Promise.all([
+      prisma.user.count(),
 
-    await prisma.$queryRaw`SELECT 1`;
-
-    console.log("✅ Prisma fonctionne");
-
-    // =====================================================
-    // 3. STATISTIQUES
-    // =====================================================
-
-    console.log("📊 Chargement statistiques...");
-
-    const totalUsers = await prisma.user.count();
-
-    console.log(
-      "👥 Total utilisateurs :",
-      totalUsers
-    );
-
-    const activeUsers = await prisma.user.count({
-      where: {
-        active: true,
-      },
-    });
-
-    console.log(
-      "🟢 Utilisateurs actifs :",
-      activeUsers
-    );
-
-    const totalFiliales = await prisma.filiale.count();
-
-    console.log(
-      "🏢 Total filiales :",
-      totalFiliales
-    );
-
-    const activeFiliales = await prisma.filiale.count({
-      where: {
-        active: true,
-      },
-    });
-
-    console.log(
-      "🟢 Filiales actives :",
-      activeFiliales
-    );
-
-    const totalSessions = await prisma.session.count({
-      where: {
-        expiresAt: {
-          gt: new Date(),
+      prisma.user.count({
+        where: {
+          active: true,
         },
-      },
-    });
+      }),
 
-    console.log(
-      "🔐 Sessions actives :",
-      totalSessions
-    );
+      prisma.user.count({
+        where: {
+          active: false,
+        },
+      }),
+
+      prisma.filiale.count(),
+
+      prisma.filiale.count({
+        where: {
+          active: true,
+        },
+      }),
+
+      prisma.permission.count(),
+
+      prisma.notification.count(),
+
+      prisma.notification.count({
+        where: {
+          read: false,
+        },
+      }),
+
+      prisma.session.count({
+        where: {
+          expiresAt: {
+            gt: new Date(),
+          },
+        },
+      }),
+    ]);
 
     // =====================================================
-    // 4. FILIALES
+    // FILIALES
     // =====================================================
-
-    console.log("🏢 Chargement filiales...");
 
     const filiales = await prisma.filiale.findMany({
       orderBy: {
@@ -119,28 +94,25 @@ export async function GET() {
         description: true,
         active: true,
         createdAt: true,
+
+        _count: {
+          select: {
+            users: true,
+          },
+        },
       },
     });
 
-    console.log(
-      "✅ Filiales chargées :",
-      filiales.length
-    );
-
     // =====================================================
-    // 5. UTILISATEURS RÉCENTS
+    // UTILISATEURS RÉCENTS
     // =====================================================
-
-    console.log(
-      "👥 Chargement utilisateurs récents..."
-    );
 
     const recentUsers = await prisma.user.findMany({
       orderBy: {
         createdAt: "desc",
       },
 
-      take: 5,
+      take: 6,
 
       select: {
         id: true,
@@ -161,34 +133,100 @@ export async function GET() {
       },
     });
 
-    console.log(
-      "✅ Utilisateurs récents :",
-      recentUsers.length
-    );
-
     // =====================================================
-    // 6. ACTIVITÉS
+    // NOTIFICATIONS RÉCENTES
     // =====================================================
 
-    const activities = recentUsers.map(
-      (item) => ({
-        id: `user-${item.id}`,
+    const recentNotifications =
+      await prisma.notification.findMany({
+        orderBy: {
+          createdAt: "desc",
+        },
 
-        type: "USER_CREATED",
+        take: 6,
 
-        title: "Utilisateur enregistré",
+        select: {
+          id: true,
+          title: true,
+          message: true,
+          type: true,
+          read: true,
+          createdAt: true,
+        },
+      });
 
-        description: `${item.prenom} ${item.nom} a été ajouté au système.`,
+    // =====================================================
+    // UTILISATEURS PAR RÔLE
+    // =====================================================
 
-        createdAt: item.createdAt,
+    const roles = [
+      "SUPER_ADMIN",
+      "ADMIN_HOLDING",
+      "DIRECTEUR_FILIALE",
+      "EMPLOYE",
+      "PARTENAIRE",
+      "CLIENT",
+      "VISITEUR",
+    ] as const;
+
+    const usersByRole = await Promise.all(
+      roles.map(async (role) => {
+        const count = await prisma.user.count({
+          where: {
+            role,
+          },
+        });
+
+        return {
+          role,
+          count,
+        };
       })
     );
 
     // =====================================================
-    // 7. RÉPONSE
+    // UTILISATEURS PAR FILIALE
     // =====================================================
 
-    const response = {
+    const usersByFiliale = filiales.map((filiale) => ({
+      code: filiale.code,
+      nom: filiale.nom,
+      users: filiale._count.users,
+    }));
+
+    // =====================================================
+    // ACTIVITÉS
+    // =====================================================
+
+    const activities = [
+      ...recentUsers.map((item) => ({
+        id: `user-${item.id}`,
+        type: "USER",
+        title: "Nouvel utilisateur",
+        description: `${item.prenom} ${item.nom} a rejoint le système.`,
+        createdAt: item.createdAt,
+      })),
+
+      ...recentNotifications.map((item) => ({
+        id: `notification-${item.id}`,
+        type: "NOTIFICATION",
+        title: item.title,
+        description: item.message,
+        createdAt: item.createdAt,
+      })),
+    ]
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() -
+          new Date(a.createdAt).getTime()
+      )
+      .slice(0, 8);
+
+    // =====================================================
+    // RÉPONSE
+    // =====================================================
+
+    return NextResponse.json({
       success: true,
 
       user: {
@@ -206,70 +244,37 @@ export async function GET() {
       statistics: {
         totalUsers,
         activeUsers,
+        inactiveUsers,
         totalFiliales,
         activeFiliales,
-        totalSessions,
+        totalPermissions,
+        totalNotifications,
+        unreadNotifications,
+        activeSessions,
       },
 
       filiales,
 
+      usersByRole,
+
+      usersByFiliale,
+
       recentUsers,
 
+      recentNotifications,
+
       activities,
-    };
-
-    console.log("=================================");
-    console.log("✅ API DASHBOARD SUCCESS");
-    console.log("=================================");
-
-    return NextResponse.json(response);
+    });
   } catch (error) {
-    console.error(
-      "================================="
-    );
-
-    console.error(
-      "❌ ERREUR API DASHBOARD"
-    );
-
-    console.error(
-      "================================="
-    );
-
-    console.error(error);
-
-    let message =
-      "Erreur interne du serveur.";
-
-    if (error instanceof Error) {
-      message = error.message;
-
-      console.error(
-        "MESSAGE :",
-        error.message
-      );
-
-      console.error(
-        "STACK :",
-        error.stack
-      );
-    }
+    console.error("❌ DASHBOARD API ERROR:", error);
 
     return NextResponse.json(
       {
         success: false,
-
-        error: message,
-
-        message,
-
-        details:
-          process.env.NODE_ENV ===
-          "development"
-            ? error instanceof Error
-              ? error.stack
-              : String(error)
-            : undefined,
+        error:
+          error instanceof Error
+            ? error.message
+            : "Erreur interne du serveur.",
       },
       {
         status: 500,
@@ -277,4 +282,3 @@ export async function GET() {
     );
   }
 }
-

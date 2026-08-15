@@ -15,10 +15,12 @@ export function proxy(request: NextRequest) {
   const publicRoutes = [
     "/",
     "/login",
+    "/a-propos",
     "/actualites",
-    "/videos",
-    "/services",
-    "/contact",
+    "/video",
+    "/poles",
+    "/auth/login",
+    "/auth/logout",
   ];
 
   const isPublicRoute = publicRoutes.some(

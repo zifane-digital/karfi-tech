@@ -1,58 +1,52 @@
 @import "tailwindcss";
 
-@plugin "daisyui";
-
-:root {
-  --karfi-royal: #2563eb;
-  --karfi-dark: #0f172a;
-  --karfi-gold: #d4af37;
-  --karfi-light: #f8fafc;
-  --karfi-red: #991b1b;
-  --karfi-white: #ffffff;
-  --karfi-text: #1e293b;
-  --karfi-border: #e2e8f0;
+@plugin "daisyui" {
+  themes: karfi, karfi-dark;
 }
-
-/* =========================================
-   THÈME CLAIR KARFI
-   ========================================= */
 
 @plugin "daisyui/theme" {
   name: "karfi";
   default: true;
 
-  --color-primary: #2563eb;
+  --color-primary: #0b3b82;
   --color-primary-content: #ffffff;
 
-  --color-secondary: #d4af37;
-  --color-secondary-content: #0f172a;
+  --color-secondary: #d4a72c;
+  --color-secondary-content: #0b3b82;
 
-  --color-accent: #d4af37;
-  --color-accent-content: #0f172a;
+  --color-accent: #1d5fbf;
+  --color-accent-content: #ffffff;
 
-  --color-neutral: #0f172a;
+  --color-neutral: #071a33;
   --color-neutral-content: #ffffff;
 
   --color-base-100: #ffffff;
-  --color-base-200: #f8fafc;
+  --color-base-200: #f5f7fa;
   --color-base-300: #e2e8f0;
-  --color-base-content: #1e293b;
 
-  --color-success: #16a34a;
-  --color-success-content: #ffffff;
+  --radius-box: 1rem;
+  --radius-field: 0.75rem;
+  --radius-selector: 0.75rem;
+}
 
-  --color-warning: #d97706;
-  --color-warning-content: #ffffff;
+@plugin "daisyui/theme" {
+  name: "karfi-dark";
 
-  --color-error: #991b1b;
-  --color-error-content: #ffffff;
+  --color-primary: #3b82d0;
+  --color-primary-content: #ffffff;
 
-  --color-info: #0284c7;
-  --color-info-content: #ffffff;
+  --color-secondary: #e2b93b;
+  --color-secondary-content: #071a33;
 
-  --radius-box: 0.75rem;
-  --radius-field: 0.625rem;
-  --radius-selector: 0.625rem;
+  --color-accent: #5b9be5;
+  --color-accent-content: #ffffff;
+
+  --color-neutral: #071a33;
+  --color-neutral-content: #ffffff;
+
+  --color-base-100: #0b1f3a;
+  --color-base-200: #071a33;
+  --color-base-300: #183454;
 }
 
 /* =========================================
