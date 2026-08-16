@@ -7,6 +7,11 @@ const SESSION_COOKIE = "siikh_session";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  if (
+    pathname.startsWith("/images") || pathname.match(/\.(jpg|png|svg|webp|jpeg|ico|css|js|mp4)$/)
+  ){
+    return NextResponse.next();
+  }
 
   // ================================================
   // ROUTES PUBLIQUES
@@ -21,6 +26,7 @@ export function proxy(request: NextRequest) {
     "/poles",
     "/auth/login",
     "/auth/logout",
+    "/images",
   ];
 
   const isPublicRoute = publicRoutes.some(
