@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
@@ -18,34 +17,32 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-base-300/60 bg-base-100/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
-
-        {/* =====================================================
-            LOGO
-        ====================================================== */}
-
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5">
+        
+        {/* LOGO */}
         <Link
           href="/"
           onClick={closeMenus}
-          className="flex shrink-0 items-center"
+          className="flex items-center gap-3"
         >
-          <Image
-            src="/images/"
-            alt="KARFI HOLDING"
-            width={180}
-            height={65}
-            priority
-            className="h-auto w-[145px] object-contain sm:w-[160px] lg:w-[175px]"
-          />
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary font-black text-primary-content">
+            K
+          </div>
+
+          <div>
+            <div className="text-lg font-black tracking-tight">
+              KARFI
+            </div>
+
+            <div className="text-[9px] font-bold tracking-[0.3em] opacity-50">
+              HOLDING
+            </div>
+          </div>
         </Link>
 
-        {/* =====================================================
-            NAVIGATION DESKTOP
-        ====================================================== */}
+        {/* ================= DESKTOP ================= */}
 
         <nav className="hidden items-center gap-1 lg:flex">
-
-          {/* ACCUEIL */}
 
           <Link
             href="/"
@@ -54,9 +51,7 @@ export default function Navbar() {
             Accueil
           </Link>
 
-          {/* =================================================
-              PÔLES
-          ================================================== */}
+          {/* ================= PÔLES ================= */}
 
           <div className="relative">
             <button
@@ -71,7 +66,7 @@ export default function Navbar() {
 
               <ChevronDown
                 size={15}
-                className={`transition-transform duration-200 ${
+                className={`transition-transform ${
                   polesOpen ? "rotate-180" : ""
                 }`}
               />
@@ -83,27 +78,27 @@ export default function Navbar() {
                 <Link
                   href="/poles"
                   onClick={closeMenus}
-                  className="block rounded-xl px-4 py-3 transition hover:bg-base-200"
+                  className="block rounded-xl px-4 py-3 hover:bg-base-200"
                 >
                   <div className="font-semibold">
                     Tous nos pôles
                   </div>
 
-                  <div className="mt-1 text-xs opacity-50">
-                    Découvrez les activités de KARFI HOLDING
+                  <div className="text-xs opacity-50">
+                    Découvrir KARFI HOLDING
                   </div>
                 </Link>
 
                 <Link
                   href="/poles/agro"
                   onClick={closeMenus}
-                  className="block rounded-xl px-4 py-3 transition hover:bg-base-200"
+                  className="block rounded-xl px-4 py-3 hover:bg-base-200"
                 >
                   <div className="font-semibold">
                     🌱 KARFI AGRO
                   </div>
 
-                  <div className="mt-1 text-xs opacity-50">
+                  <div className="text-xs opacity-50">
                     Agriculture et agro-industrie
                   </div>
                 </Link>
@@ -111,13 +106,13 @@ export default function Navbar() {
                 <Link
                   href="/poles/tech"
                   onClick={closeMenus}
-                  className="block rounded-xl px-4 py-3 transition hover:bg-base-200"
+                  className="block rounded-xl px-4 py-3 hover:bg-base-200"
                 >
                   <div className="font-semibold">
                     💻 KARFI TECH
                   </div>
 
-                  <div className="mt-1 text-xs opacity-50">
+                  <div className="text-xs opacity-50">
                     Technologie et solutions numériques
                   </div>
                 </Link>
@@ -125,13 +120,13 @@ export default function Navbar() {
                 <Link
                   href="/poles/mobilier"
                   onClick={closeMenus}
-                  className="block rounded-xl px-4 py-3 transition hover:bg-base-200"
+                  className="block rounded-xl px-4 py-3 hover:bg-base-200"
                 >
                   <div className="font-semibold">
                     🏗️ KARFI MOBILIER
                   </div>
 
-                  <div className="mt-1 text-xs opacity-50">
+                  <div className="text-xs opacity-50">
                     Mobilier et aménagement
                   </div>
                 </Link>
@@ -139,23 +134,22 @@ export default function Navbar() {
                 <Link
                   href="/poles/formation"
                   onClick={closeMenus}
-                  className="block rounded-xl px-4 py-3 transition hover:bg-base-200"
+                  className="block rounded-xl px-4 py-3 hover:bg-base-200"
                 >
                   <div className="font-semibold">
                     🎓 KARFI FORMATION
                   </div>
 
-                  <div className="mt-1 text-xs opacity-50">
+                  <div className="text-xs opacity-50">
                     Formation et incubation
                   </div>
                 </Link>
+
               </div>
             )}
           </div>
 
-          {/* =================================================
-              À PROPOS
-          ================================================== */}
+          {/* ================= À PROPOS ================= */}
 
           <div className="relative">
             <button
@@ -170,7 +164,7 @@ export default function Navbar() {
 
               <ChevronDown
                 size={15}
-                className={`transition-transform duration-200 ${
+                className={`transition-transform ${
                   aboutOpen ? "rotate-180" : ""
                 }`}
               />
@@ -182,77 +176,46 @@ export default function Navbar() {
                 <Link
                   href="/a-propos"
                   onClick={closeMenus}
-                  className="block rounded-xl px-4 py-3 transition hover:bg-base-200"
+                  className="block rounded-xl px-4 py-3 hover:bg-base-200"
                 >
                   <div className="font-semibold">
                     À propos de KARFI
-                  </div>
-
-                  <div className="mt-1 text-xs opacity-50">
-                    Découvrez notre groupe
                   </div>
                 </Link>
 
                 <Link
                   href="/a-propos/vision"
                   onClick={closeMenus}
-                  className="block rounded-xl px-4 py-3 transition hover:bg-base-200"
+                  className="block rounded-xl px-4 py-3 hover:bg-base-200"
                 >
                   <div className="font-semibold">
                     Notre vision
-                  </div>
-
-                  <div className="mt-1 text-xs opacity-50">
-                    Notre ambition
                   </div>
                 </Link>
 
                 <Link
                   href="/a-propos/mission"
                   onClick={closeMenus}
-                  className="block rounded-xl px-4 py-3 transition hover:bg-base-200"
+                  className="block rounded-xl px-4 py-3 hover:bg-base-200"
                 >
                   <div className="font-semibold">
                     Notre mission
-                  </div>
-
-                  <div className="mt-1 text-xs opacity-50">
-                    Notre engagement
                   </div>
                 </Link>
 
                 <Link
                   href="/a-propos/equipe"
                   onClick={closeMenus}
-                  className="block rounded-xl px-4 py-3 transition hover:bg-base-200"
+                  className="block rounded-xl px-4 py-3 hover:bg-base-200"
                 >
                   <div className="font-semibold">
                     Notre équipe
                   </div>
-
-                  <div className="mt-1 text-xs opacity-50">
-                    Les personnes derrière KARFI
-                  </div>
                 </Link>
 
-                <Link
-                  href="/a-propos/histoire"
-                  onClick={closeMenus}
-                  className="block rounded-xl px-4 py-3 transition hover:bg-base-200"
-                >
-                  <div className="font-semibold">
-                    Notre histoire
-                  </div>
-
-                  <div className="mt-1 text-xs opacity-50">
-                    Notre parcours
-                  </div>
-                </Link>
               </div>
             )}
           </div>
-
-          {/* ACTUALITÉS */}
 
           <Link
             href="/actualites"
@@ -261,16 +224,12 @@ export default function Navbar() {
             Actualités
           </Link>
 
-          {/* PARTENAIRES */}
-
           <Link
             href="/partenaires"
             className="rounded-lg px-4 py-2 text-sm font-medium transition hover:bg-base-200"
           >
             Partenaires
           </Link>
-
-          {/* CONTACT */}
 
           <Link
             href="/contact"
@@ -280,62 +239,40 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* =====================================================
-            BOUTON CONTACT DESKTOP
-        ====================================================== */}
-
+        {/* CTA */}
         <Link
           href="/contact"
-          className="btn btn-primary hidden rounded-xl px-5 lg:flex"
+          className="btn btn-primary hidden rounded-xl lg:flex"
         >
           Nous contacter
         </Link>
 
-        {/* =====================================================
-            MENU MOBILE
-        ====================================================== */}
-
+        {/* MOBILE BUTTON */}
         <button
           type="button"
-          onClick={() => {
-            setMobileOpen((value) => !value);
-            setPolesOpen(false);
-            setAboutOpen(false);
-          }}
+          onClick={() => setMobileOpen((value) => !value)}
           className="btn btn-ghost btn-square lg:hidden"
-          aria-label={
-            mobileOpen ? "Fermer le menu" : "Ouvrir le menu"
-          }
+          aria-label="Ouvrir le menu"
         >
-          {mobileOpen ? (
-            <X size={24} />
-          ) : (
-            <Menu size={24} />
-          )}
+          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* =====================================================
-          NAVIGATION MOBILE
-      ====================================================== */}
+      {/* ================= MOBILE ================= */}
 
       {mobileOpen && (
         <div className="border-t border-base-300 bg-base-100 lg:hidden">
           <nav className="mx-auto max-w-7xl space-y-1 px-5 py-4">
 
-            {/* ACCUEIL */}
-
             <Link
               href="/"
               onClick={closeMenus}
-              className="block rounded-xl px-4 py-3 font-medium transition hover:bg-base-200"
+              className="block rounded-xl px-4 py-3 font-medium hover:bg-base-200"
             >
               Accueil
             </Link>
 
-            {/* =================================================
-                PÔLES MOBILE
-            ================================================== */}
+            {/* MOBILE PÔLES */}
 
             <button
               type="button"
@@ -343,13 +280,13 @@ export default function Navbar() {
                 setPolesOpen((value) => !value);
                 setAboutOpen(false);
               }}
-              className="flex w-full items-center justify-between rounded-xl px-4 py-3 font-medium transition hover:bg-base-200"
+              className="flex w-full items-center justify-between rounded-xl px-4 py-3 font-medium hover:bg-base-200"
             >
-              <span>Pôles</span>
+              Pôles
 
               <ChevronDown
-                size={18}
-                className={`transition-transform duration-200 ${
+                size={17}
+                className={`transition-transform ${
                   polesOpen ? "rotate-180" : ""
                 }`}
               />
@@ -361,7 +298,7 @@ export default function Navbar() {
                 <Link
                   href="/poles"
                   onClick={closeMenus}
-                  className="block rounded-lg px-4 py-2 text-sm transition hover:bg-base-200"
+                  className="block rounded-lg px-4 py-2 text-sm hover:bg-base-200"
                 >
                   Tous nos pôles
                 </Link>
@@ -369,7 +306,7 @@ export default function Navbar() {
                 <Link
                   href="/poles/agro"
                   onClick={closeMenus}
-                  className="block rounded-lg px-4 py-2 text-sm transition hover:bg-base-200"
+                  className="block rounded-lg px-4 py-2 text-sm hover:bg-base-200"
                 >
                   🌱 KARFI AGRO
                 </Link>
@@ -377,7 +314,7 @@ export default function Navbar() {
                 <Link
                   href="/poles/tech"
                   onClick={closeMenus}
-                  className="block rounded-lg px-4 py-2 text-sm transition hover:bg-base-200"
+                  className="block rounded-lg px-4 py-2 text-sm hover:bg-base-200"
                 >
                   💻 KARFI TECH
                 </Link>
@@ -385,7 +322,7 @@ export default function Navbar() {
                 <Link
                   href="/poles/mobilier"
                   onClick={closeMenus}
-                  className="block rounded-lg px-4 py-2 text-sm transition hover:bg-base-200"
+                  className="block rounded-lg px-4 py-2 text-sm hover:bg-base-200"
                 >
                   🏗️ KARFI MOBILIER
                 </Link>
@@ -393,16 +330,15 @@ export default function Navbar() {
                 <Link
                   href="/poles/formation"
                   onClick={closeMenus}
-                  className="block rounded-lg px-4 py-2 text-sm transition hover:bg-base-200"
+                  className="block rounded-lg px-4 py-2 text-sm hover:bg-base-200"
                 >
                   🎓 KARFI FORMATION
                 </Link>
+
               </div>
             )}
 
-            {/* =================================================
-                À PROPOS MOBILE
-            ================================================== */}
+            {/* MOBILE À PROPOS */}
 
             <button
               type="button"
@@ -410,13 +346,13 @@ export default function Navbar() {
                 setAboutOpen((value) => !value);
                 setPolesOpen(false);
               }}
-              className="flex w-full items-center justify-between rounded-xl px-4 py-3 font-medium transition hover:bg-base-200"
+              className="flex w-full items-center justify-between rounded-xl px-4 py-3 font-medium hover:bg-base-200"
             >
-              <span>À propos</span>
+              À propos
 
               <ChevronDown
-                size={18}
-                className={`transition-transform duration-200 ${
+                size={17}
+                className={`transition-transform ${
                   aboutOpen ? "rotate-180" : ""
                 }`}
               />
@@ -428,7 +364,7 @@ export default function Navbar() {
                 <Link
                   href="/a-propos"
                   onClick={closeMenus}
-                  className="block rounded-lg px-4 py-2 text-sm transition hover:bg-base-200"
+                  className="block rounded-lg px-4 py-2 text-sm hover:bg-base-200"
                 >
                   À propos de KARFI
                 </Link>
@@ -436,7 +372,7 @@ export default function Navbar() {
                 <Link
                   href="/a-propos/vision"
                   onClick={closeMenus}
-                  className="block rounded-lg px-4 py-2 text-sm transition hover:bg-base-200"
+                  className="block rounded-lg px-4 py-2 text-sm hover:bg-base-200"
                 >
                   Notre vision
                 </Link>
@@ -444,7 +380,7 @@ export default function Navbar() {
                 <Link
                   href="/a-propos/mission"
                   onClick={closeMenus}
-                  className="block rounded-lg px-4 py-2 text-sm transition hover:bg-base-200"
+                  className="block rounded-lg px-4 py-2 text-sm hover:bg-base-200"
                 >
                   Notre mission
                 </Link>
@@ -452,52 +388,37 @@ export default function Navbar() {
                 <Link
                   href="/a-propos/equipe"
                   onClick={closeMenus}
-                  className="block rounded-lg px-4 py-2 text-sm transition hover:bg-base-200"
+                  className="block rounded-lg px-4 py-2 text-sm hover:bg-base-200"
                 >
                   Notre équipe
                 </Link>
 
-                <Link
-                  href="/a-propos/histoire"
-                  onClick={closeMenus}
-                  className="block rounded-lg px-4 py-2 text-sm transition hover:bg-base-200"
-                >
-                  Notre histoire
-                </Link>
               </div>
             )}
-
-            {/* ACTUALITÉS */}
 
             <Link
               href="/actualites"
               onClick={closeMenus}
-              className="block rounded-xl px-4 py-3 font-medium transition hover:bg-base-200"
+              className="block rounded-xl px-4 py-3 font-medium hover:bg-base-200"
             >
               Actualités
             </Link>
 
-            {/* PARTENAIRES */}
-
             <Link
               href="/partenaires"
               onClick={closeMenus}
-              className="block rounded-xl px-4 py-3 font-medium transition hover:bg-base-200"
+              className="block rounded-xl px-4 py-3 font-medium hover:bg-base-200"
             >
               Partenaires
             </Link>
 
-            {/* CONTACT */}
-
             <Link
               href="/contact"
               onClick={closeMenus}
-              className="block rounded-xl px-4 py-3 font-medium transition hover:bg-base-200"
+              className="block rounded-xl px-4 py-3 font-medium hover:bg-base-200"
             >
               Contact
             </Link>
-
-            {/* CTA */}
 
             <Link
               href="/contact"
@@ -506,6 +427,7 @@ export default function Navbar() {
             >
               Nous contacter
             </Link>
+
           </nav>
         </div>
       )}
