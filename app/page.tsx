@@ -1562,7 +1562,7 @@ export default function Home() {
             <div className="relative overflow-hidden rounded-[2rem] border border-base-300 bg-base-200">
 
               <img
-                src="/images/apropos/apropos.jpeg"
+                src="/images/apropos/apropos.jpg"
                 alt="À propos de KARFI HOLDING"
                 className="h-[420px] w-full object-cover transition duration-700 hover:scale-105"
               />
